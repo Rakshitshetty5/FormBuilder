@@ -11,7 +11,7 @@ function App() {
   const [formElements, setFormElements] = useState([]);
 
   const handleOnDragEnd = (el) => {
-    console.log(el)
+    if(el.source.droppableId === 'formDrop-2') return;
     if (!el.destination) return;
     if(el.destination.droppableId !== 'formDrop-2') return;
 
