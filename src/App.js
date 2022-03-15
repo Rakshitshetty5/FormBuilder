@@ -11,15 +11,36 @@ function App() {
   const [formElements, setFormElements] = useState([]);
 
   const handleOnDragEnd = (el) => {
-    if(el.source.droppableId === 'formDrop-2') return;
     if (!el.destination) return;
-    if(el.destination.droppableId !== 'formDrop-2') return;
-
+    if(el.source.droppableId === 'formDrop-2' && el.destination.droppableId === 'formDrop-1') return;
+    if(el.source.droppableId === 'formDrop-2'){
+      const itemToBeMoved = formElements.find(item => item.id === el.draggableId)
+      const newFormElements = formElements.filter(item => item.id !== el.draggableId)
+      newFormElements.splice(el.destination.index, 0, itemToBeMoved);
+      setFormElements(newFormElements)
+      return;
+    }
     const newElement = INPUT_TYPES.find(item => item.id.toString() === el.draggableId)
-    let object = { ...newElement, id: uuidv4(),  placeholder: '',
-    value: '',
-    type: '', }
-    setFormElements((elements) => [...elements, object]);
+    let object;
+    if (newElement.element === "input") {
+      object = {
+        ...newElement,
+        id: uuidv4(),
+        placeholder: "",
+        value: "",
+        type: "",
+      };
+    } else if (newElement.element === "button") {
+      object = {
+        ...newElement,
+        id: uuidv4(),
+      };
+    }
+    setFormElements((elements) => {
+      if(elements.length === 0) return [...elements, object];
+      elements.splice(el.destination.index, 0, object);
+      return elements
+    });
   };
 
   const handleChangeInput = (el, id) => {
@@ -36,7 +57,7 @@ function App() {
     })
   }
 
-  console.log(formElements);
+  console.log(formElements)
 
   return (
     <div className="App">
