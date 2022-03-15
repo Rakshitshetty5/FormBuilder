@@ -57,7 +57,6 @@ function App() {
     })
   }
 
-  console.log(formElements)
 
   return (
     <div className="App">
