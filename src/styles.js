@@ -6,10 +6,10 @@ export const FormContainer = styled.div`
     border: 1px solid black;
     display: flex;
     flex-direction: column;
-    align-items: center;
     justify-content: center;
-    min-height: 20rem;
+    height: 28rem;
     border-radius: 5px;
+    overflow-y: scroll;
 `;
 
 
@@ -34,6 +34,8 @@ export const FormElementsContainer = styled.div`
     justify-content: center;
     border: 0.5px solid black;
     border-radius: 5px;
+    padding-bottom: 1rem;
+    height: 28rem;
 `;
 
 export const Container = styled.div`
@@ -62,7 +64,24 @@ export const InputContainer = styled.div`
 export const Input = styled.input`
     width: 20rem;
     height: 2rem;
-    margin-right: 2rem;
+`;
+
+export const PropertyInput = styled.input`
+    width: fit-content;
+    height: 1.6rem;
+    margin: 0px;
+    margin-bottom: 0.5rem;
+`;
+
+export const Dropdown = styled.select`
+    width: 20rem;
+    height: 2rem;
+`;
+
+export const SavedForms = styled.select`
+    width: 20rem;
+    height: 2rem;
+    margin-bottom: 2rem;
 `;
 
 export const SettingButton = styled.button`
@@ -70,4 +89,47 @@ export const SettingButton = styled.button`
     border: none;
     outline: none;
     font-size: 1.5rem;
+    margin-left: 2rem;
 `;
+
+export const AddOptionButton = styled.button`
+    height: 1.5rem;
+    margin: 0px;
+    margin-left: 0.3rem;
+`;
+
+export const SaveButton = styled.button`
+    height: 2rem;
+    width: 80%;
+    margin-left: 10%;
+`;
+
+export const SetPropertyContainer = styled.div`
+    position: fixed;
+    top: 20%;
+    right: 2%;
+    background-color: green;
+    z-index: 2; 
+    border: 1px solid #888888;
+    display: flex;
+    flex-direction: column;
+    min-height: 10rem;
+    padding: 1rem;
+    min-width: 10rem;
+`;
+
+
+export const CheckboxContainer = styled.div`
+    display: flex
+    flex-direction: column;
+`
+export const SaveForm = styled.button`
+    width: 10rem;
+    height: 2.5rem;
+    background: blue;
+    margin-top: 5rem;
+    color: white;
+    outline: none;
+    border: none;
+    font-size: 1.2rem;
+`

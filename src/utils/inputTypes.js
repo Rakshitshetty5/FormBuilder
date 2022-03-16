@@ -10,4 +10,24 @@ export const INPUT_TYPES = [
         element: "button",
         title: 'Button'
     },
+    {
+        id: 3,
+        element: "label",
+        title: "Label"
+    },
+    {
+        id: 4,
+        element: "dropdown",
+        title: "Dropdown"
+    },
+    {
+        id: 5,
+        element: "checkbox",
+        title: "Checkbox"
+    },
+    {
+        id: 6,
+        element: "textarea",
+        title: "Textarea"
+    }
 ]
