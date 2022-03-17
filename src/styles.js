@@ -1,9 +1,27 @@
 import styled from 'styled-components';
 
+import { createGlobalStyle } from "styled-components";
+
+export const GlobalStyle = createGlobalStyle`
+body {
+  background-color: ${props => (props.theme.mode === "dark" ? "#111" : "#EEE")};
+  color: ${props => (props.theme.mode === "dark" ? "#EEE" : "#111")};
+  text-align: center
+}
+i{
+    color: ${props => (props.theme.mode === "dark" ? "white" : "dark")}
+}
+.fa-moon-o{
+    color : black;
+}
+.fa-sun-o{
+    color: yellow;
+}
+`;
 
 export const FormContainer = styled.div`
     width: 50%;
-    border: 1px solid black;
+    border: ${props => (props.theme.mode === "dark" ? "1px solid white" : "1px solid black")};
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -32,7 +50,7 @@ export const FormElementsContainer = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    border: 0.5px solid black;
+    border: ${props => (props.theme.mode === "dark" ? "1px solid white" : "1px solid black")};
     border-radius: 5px;
     padding-bottom: 1rem;
     height: 28rem;
@@ -47,12 +65,13 @@ export const Navbar = styled.div`
     display: flex;
     align-items: center;
     width: 100%;
-    background-color: black;
+    background-color: ${props => (props.theme.mode === "dark" ? "white" : "black")};
     justify-content: center;
     height: 5rem;
     margin-bottom: 3rem;
-    color: white;
+    color: ${props => (props.theme.mode === "dark" ? "black" : "white")};
     font-size: 1.8rem;
+    position relative;
 `;
 
 export const InputContainer = styled.div`
@@ -132,4 +151,14 @@ export const SaveForm = styled.button`
     outline: none;
     border: none;
     font-size: 1.2rem;
+`
+
+export const ToggleButton = styled.button`
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    background: transparent;
+    border: none;
+    outline: none;
+    font-size: 1.5rem;
 `

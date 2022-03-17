@@ -4,15 +4,27 @@ import { DragDropContext } from "react-beautiful-dnd";
 import FormElements from "./components/FormElements";
 import PropertyCustomizer from "./components/PropertyCustomizer";
 import Form from "./components/Form";
-import { Container, Navbar, SaveForm, SavedForms } from "./styles";
+import { Container, Navbar, SaveForm, SavedForms, GlobalStyle, ToggleButton } from "./styles";
 import { INPUT_TYPES } from "./utils/inputTypes";
 import { v4 as uuidv4 } from 'uuid';
+import { ThemeProvider } from "styled-components";
 
 function App() {
   const [formElements, setFormElements] = useState([]);
   const [formId, setFormId] = useState(null)
   const [savedFormIds, setSavedFormIds] = useState([])
   const [showSaveButton, toggleShowSaveButton] = useState(true)
+  const [theme, setTheme] = useState(getInitialTheme);
+  
+  useEffect(() => {
+    localStorage.setItem("theme", JSON.stringify(theme));
+  }, [theme]);
+
+  function getInitialTheme() {
+    const savedTheme = localStorage.getItem("theme");
+
+    return savedTheme ? JSON.parse(savedTheme) : { mode: "light" };
+  }
 
   useEffect(() => {
     const savedForms = JSON.parse(localStorage.getItem('savedForms'));
@@ -176,9 +188,22 @@ function App() {
   }
 
   return (
-    <div className="App">
+    <ThemeProvider theme={theme}>
+      <GlobalStyle />
       <Navbar>
         FORM BUILDER
+        <ToggleButton
+          onClick={() =>
+            setTheme(
+              theme.mode === "dark" ? { mode: "light" } : { mode: "dark" }
+            )
+          }
+        >
+          {
+            theme.mode === "dark" ? <i class="fa fa-moon-o" aria-hidden="true"></i>
+            : <i class="fa fa-sun-o" aria-hidden="true"></i>
+          }
+        </ToggleButton>
       </Navbar>
       <SavedForms onChange={e => setFormId(e.target.value)} defaultValue={"default"}>
           <option disabled value="default">Select Form to load</option>
@@ -204,7 +229,7 @@ function App() {
           handlePropertyUpdate={handlePropertyUpdate}
         />
       )}
-    </div>
+    </ThemeProvider>
   );
 }
 
