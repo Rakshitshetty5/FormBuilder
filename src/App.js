@@ -17,7 +17,7 @@ function App() {
   useEffect(() => {
     const savedForms = JSON.parse(localStorage.getItem('savedForms'));
     if(!savedForms) return;
-    const formIds = savedForms.map(form => form.id);
+    const formIds = savedForms.map(form =>  { return { id : form.id, name : form.name }});
     setSavedFormIds(formIds)
   },[])
 
@@ -33,6 +33,7 @@ function App() {
 
   const getFromLocalStorage = (id) => {
     let savedForms = JSON.parse(localStorage.getItem('savedForms'))
+    if(!savedForms) return;
     const savedForm = savedForms.find(form => form.id === id)
     if(!savedForm) return;
     setFormElements(savedForm.formElements)
@@ -46,20 +47,23 @@ function App() {
       formElements
     };
     if(!savedForms){
-      savedForms = [formObject]
+      const name = prompt('Enter Form Name')
+      savedForms = [{...formObject, name}]
       localStorage.setItem('savedForms', JSON.stringify(savedForms))
-      return;
+      return window.location.reload();
     }
     if(formId){
       const formExists = savedForms.findIndex(form => form.id === formId)
       if(formExists >= 0){
         savedForms[formExists].formElements = formElements
         localStorage.setItem('savedForms', JSON.stringify(savedForms))
-        return;
+        return window.location.reload();
       }
     }
-    savedForms.push(formObject)
+    const name = prompt('Enter Form Name')
+    savedForms.push({...formObject, name})
     localStorage.setItem('savedForms', JSON.stringify(savedForms))
+    window.location.reload()
   }
 
   const handleOnDragEnd = (el) => {
@@ -179,7 +183,7 @@ function App() {
       <SavedForms onChange={e => setFormId(e.target.value)} defaultValue={"default"}>
           <option disabled value="default">Select Form to load</option>
           {
-            savedFormIds.map(item => <option key={item} value={item}>{item}</option>)
+            savedFormIds.map(({id, name}) => <option key={id} value={id}>{name}</option>)
           }
       </SavedForms>
       <DragDropContext onDragEnd={handleOnDragEnd}>   
